@@ -48,7 +48,7 @@ df["num_platforms"] = df["console"].apply(lambda x: len(x.split(", ")))
 df = df.sort_values(by="total_sales", ascending=False)
 
 df.to_sql(
-    "staging_jogos",
+    "staging_games",
     engine,
     if_exists="replace",
     index=False

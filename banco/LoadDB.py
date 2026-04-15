@@ -7,7 +7,7 @@ with engine.connect() as conn:
     conn.execute(text("""
         INSERT INTO dim_genero (nome_genero)
         SELECT DISTINCT genre
-        FROM staging_jogos
+        FROM staging_games
         WHERE genre IS NOT NULL
         ON CONFLICT DO NOTHING
     """))
@@ -16,7 +16,7 @@ with engine.connect() as conn:
     conn.execute(text("""
         INSERT INTO dim_publisher (nome_publisher)
         SELECT DISTINCT publisher
-        FROM staging_jogos
+        FROM staging_games
         WHERE publisher IS NOT NULL
         ON CONFLICT DO NOTHING
     """))
@@ -25,7 +25,7 @@ with engine.connect() as conn:
     conn.execute(text("""
         INSERT INTO dim_developer (nome_developer)
         SELECT DISTINCT developer
-        FROM staging_jogos
+        FROM staging_games
         WHERE developer IS NOT NULL
         ON CONFLICT DO NOTHING
     """))
@@ -39,7 +39,7 @@ with engine.connect() as conn:
             EXTRACT(MONTH FROM release_date),
             EXTRACT(QUARTER FROM release_date),
             EXTRACT(YEAR FROM release_date)
-        FROM staging_jogos
+        FROM staging_games
         WHERE release_date IS NOT NULL
         ON CONFLICT DO NOTHING
     """))
@@ -75,7 +75,7 @@ with engine.connect() as conn:
             s.pal_sales,
             s.other_sales,
             s.critic_score
-        FROM staging_jogos s
+        FROM staging_games s
         JOIN dim_genero g
             ON g.nome_genero = s.genre
         JOIN dim_publisher p
